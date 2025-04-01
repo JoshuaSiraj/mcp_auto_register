@@ -1,0 +1,18 @@
+[project]
+authors = ["Joshua Siraj <joshua.siraj@ryerson.ca>"]
+channels = ["conda-forge"]
+description = "Add a short description here"
+name = "mcp_auto_register"
+platforms = ["linux-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+python = ">=3.13.2,<3.14"
+
+[pypi-dependencies]
+mcp_auto_register = { path = ".", editable = true }
+mcp = { version = ">=1.6.0, <2", extras = ["cli"] }
+nba-api = ">=1.9.0, <2"
+scipy = ">=1.15.2, <2"

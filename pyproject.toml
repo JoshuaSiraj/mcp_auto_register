@@ -1,0 +1,12 @@
+[project]
+authors = [{name = "Joshua Siraj", email = "joshua.siraj@torontomu.ca"}]
+description = "Add a short description here"
+name = "mcp_auto_register"
+requires-python = ">= 3.11"
+version = "0.1.0"
+dependencies = ["mcp[cli]>=1.6.0,<2"]
+
+[build-system]
+build-backend = "hatchling.build"
+requires = ["hatchling"]
+
