@@ -1,12 +1,36 @@
 [project]
 authors = [{name = "Joshua Siraj", email = "joshua.siraj@torontomu.ca"}]
-description = "Add a short description here"
+description = "Automate registering functions in a python package as MCP tools."
 name = "mcp_auto_register"
-requires-python = ">= 3.11"
-version = "0.1.0"
+requires-python = ">= 3.10"
+version = "1.0.2"
+readme = "README.md"
 dependencies = ["mcp[cli]>=1.6.0,<2"]
+
+classifiers = [
+  "License :: OSI Approved :: MIT License",
+  "Natural Language :: English",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+]
+
+[project.urls]
+Homepage = "https://github.com/JoshuaSiraj/mcp_auto_register"
 
 [build-system]
 build-backend = "hatchling.build"
 requires = ["hatchling"]
 
+[tool.hatch.build]
+directory = "dist"
+
+[tool.hatch.build.targets.wheel]
+# Automatically discovers packages in `src/`
+packages = ["src/mcp_auto_register"]
+include = [
+    "pyproject.toml",
+    "README.md",
+    "src/**"
+]

@@ -3,16 +3,58 @@ authors = ["Joshua Siraj <joshua.siraj@ryerson.ca>"]
 channels = ["conda-forge"]
 description = "Add a short description here"
 name = "mcp_auto_register"
-platforms = ["linux-64"]
+platforms = ["linux-64", "win-64", "osx-64"]
 version = "0.1.0"
 
 [tasks]
 
 [dependencies]
-python = ">=3.13.2,<3.14"
+python = ">=3.10"
 
 [pypi-dependencies]
 mcp_auto_register = { path = ".", editable = true }
 mcp = { version = ">=1.6.0, <2", extras = ["cli"] }
 nba-api = ">=1.9.0, <2"
 scipy = ">=1.15.2, <2"
+
+[environments]
+publish = { features = ["build", "release"], solve-group = "default" }
+
+#################################### RELEASE & BUILD ###############################################
+
+[feature.release.dependencies]
+python-semantic-release = "*"
+
+[feature.release.tasks]
+semver = 'echo "Next Version is: $(semantic-release version --print)"'
+release = "semantic-release version"
+
+[feature.build.dependencies]
+hatch = "*"
+
+[feature.build.tasks]
+# Builds the package
+build = { cmd = [
+  "hatch",
+  "build",
+  "--clean",
+], inputs = [
+  "src",
+  "pyproject.toml",
+], outputs = [
+  "dist/*",
+], description = "Build the package" }
+
+# Publishes the package to the main PYPI repository, depends on the build task
+publish-pypi = { cmd = [
+  "hatch",
+  "publish",
+  "--yes",
+  "--repo",
+  "main",
+], inputs = [
+  "dist/*",
+], depends-on = [
+  "build",
+], description = "Publish to main PyPI" }
+
